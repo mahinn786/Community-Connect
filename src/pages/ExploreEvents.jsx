@@ -14,7 +14,8 @@ import {
   Droplets,
   HeartHandshake,
   CheckCircle2,
-  Calendar
+  Calendar,
+  UserCheck
 } from 'lucide-react';
 
 export const ExploreEvents = ({
