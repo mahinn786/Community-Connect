@@ -24,8 +24,8 @@ export const INITIAL_USERS = [
   {
     id: 'u-volunteer-1',
     name: 'Aarav Patel',
-    email: 'aarav.volunteer@gmail.com',
-    role: 'Volunteer',
+    email: 'aarav.patel@gmail.com',
+    role: 'Participant',
     organization: 'Greenfield College',
     avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=250',
     verified: true,
@@ -35,7 +35,9 @@ export const INITIAL_USERS = [
     cleanupsAttended: 4,
     badges: ['b1', 'b2', 'b3', 'b4'],
     interests: ['Tree Plantation', 'Cleanliness Drives', 'Education'],
-    registeredEvents: ['evt-1', 'evt-2', 'evt-4']
+    registeredEvents: ['evt-1', 'evt-2', 'evt-4'],
+    registeredParticipantEvents: ['evt-1'],
+    registeredVolunteerEvents: ['evt-1', 'evt-2', 'evt-4']
   },
   {
     id: 'u-participant-1',

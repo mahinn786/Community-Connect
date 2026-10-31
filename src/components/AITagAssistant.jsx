@@ -21,12 +21,12 @@ export const AITagAssistant = ({ title, category, description, onTagsGenerated }
       type="button"
       onClick={handleGenerate}
       disabled={loading}
-      className="px-3 py-1.5 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white text-xs font-bold shadow-md hover:shadow-lg transition-all flex items-center gap-1.5 disabled:opacity-50"
+      className="px-3 py-1.5 rounded-xl bg-[#783F46] hover:bg-[#623339] text-white text-xs font-bold shadow-md hover:shadow-lg transition-all flex items-center gap-1.5 disabled:opacity-50"
     >
       {loading ? (
         <Loader2 className="w-3.5 h-3.5 animate-spin" />
       ) : (
-        <Sparkles className="w-3.5 h-3.5 text-amber-300" />
+        <Sparkles className="w-3.5 h-3.5 text-[#D9D1C7]" />
       )}
       <span>{loading ? 'AI Suggesting...' : 'AI Auto-Suggest Tags'}</span>
     </button>

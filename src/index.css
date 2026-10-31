@@ -3,45 +3,83 @@
 @tailwind utilities;
 
 @layer base {
+  html {
+    scroll-behavior: smooth;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+
   body {
-    @apply bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100 min-h-screen selection:bg-emerald-500 selection:text-white;
+    @apply bg-[#F6F3EF] text-[#342C2D] dark:bg-[#252021] dark:text-[#F6F3EF] min-h-screen font-sans antialiased;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-heading tracking-tight text-[#342C2D] dark:text-[#F6F3EF];
   }
 }
 
-/* Glassmorphic utilities */
+/* Glassmorphism & Panel Utilities */
 .glass-panel {
-  background: rgba(255, 255, 255, 0.75);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(226, 232, 240, 0.8);
+  background: rgba(246, 243, 239, 0.92);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid #D9D1C7;
 }
 
 .dark .glass-panel {
-  background: rgba(15, 23, 42, 0.75);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(30, 41, 59, 0.8);
+  background: rgba(42, 35, 36, 0.92);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(217, 209, 199, 0.2);
 }
 
-/* Custom scrollbar */
+.glass-dropdown {
+  background: #FFFFFF;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid #D9D1C7;
+}
+
+.dark .glass-dropdown {
+  background: #2A2324;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(217, 209, 199, 0.25);
+}
+
+/* Heading emphasis class (solid Deep Burgundy per spec) */
+.gradient-text-primary {
+  @apply text-[#783F46] dark:text-[#D4A8B0];
+}
+
+/* Custom scrollbar in burgundy and stone */
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 6px;
+  height: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  @apply bg-transparent;
+  background: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
-  @apply bg-slate-300 dark:bg-slate-700 rounded-full hover:bg-slate-400 dark:hover:bg-slate-600 transition-colors;
+  @apply bg-[#D9D1C7] dark:bg-[#4D4344] rounded-full hover:bg-[#B59A8C] dark:hover:bg-[#783F46] transition-colors;
 }
 
 /* Leaflet map popup customization */
 .leaflet-popup-content-wrapper {
-  @apply bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 rounded-xl shadow-xl border border-slate-200 dark:border-slate-800 p-1 !important;
+  @apply bg-[#FFFFFF] dark:bg-[#2A2324] text-[#342C2D] dark:text-[#F6F3EF] rounded-2xl shadow-xl border border-[#D9D1C7] dark:border-[#4D4344] p-1 !important;
 }
 
 .leaflet-popup-tip {
-  @apply bg-white dark:bg-slate-900 !important;
+  @apply bg-[#FFFFFF] dark:bg-[#2A2324] !important;
+}
+
+/* Reduced motion accessibility support */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

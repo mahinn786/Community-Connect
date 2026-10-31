@@ -132,24 +132,43 @@ app.delete('/api/events/:id', (req, res) => {
   res.json({ success: true, message: 'Event deleted' });
 });
 
-// Register / Cancel Participation
+// Register / Cancel Participation (Participant or Volunteer)
 app.post('/api/events/:id/register', (req, res) => {
-  const { userId } = req.body;
+  const { userId, role = 'Volunteer' } = req.body;
   const event = events.find(e => e.id === req.params.id);
   if (!event) return res.status(404).json({ message: 'Event not found' });
 
-  const isRegistered = event.registeredVolunteers.includes(userId);
-  if (isRegistered) {
-    event.registeredVolunteers = event.registeredVolunteers.filter(id => id !== userId);
-  } else {
-    if (event.registeredVolunteers.length >= event.volunteerLimit) {
-      return res.status(400).json({ message: 'Event volunteer limit reached' });
+  if (!event.registeredVolunteers) event.registeredVolunteers = [];
+  if (!event.registeredParticipants) event.registeredParticipants = [];
+
+  let isRegistered = false;
+  if (role === 'Participant') {
+    isRegistered = event.registeredParticipants.includes(userId);
+    if (isRegistered) {
+      event.registeredParticipants = event.registeredParticipants.filter(id => id !== userId);
+    } else {
+      const pLimit = event.participantLimit || 150;
+      if (event.registeredParticipants.length >= pLimit) {
+        return res.status(400).json({ message: 'Participant slots are fully booked' });
+      }
+      event.registeredParticipants.push(userId);
     }
-    event.registeredVolunteers.push(userId);
+  } else {
+    isRegistered = event.registeredVolunteers.includes(userId);
+    if (isRegistered) {
+      event.registeredVolunteers = event.registeredVolunteers.filter(id => id !== userId);
+    } else {
+      const vLimit = event.volunteerLimit || 50;
+      if (event.registeredVolunteers.length >= vLimit) {
+        return res.status(400).json({ message: 'Volunteer slots are fully booked' });
+      }
+      event.registeredVolunteers.push(userId);
+    }
   }
 
   const user = users.find(u => u.id === userId);
   if (user) {
+    if (!user.registeredEvents) user.registeredEvents = [];
     if (isRegistered) {
       user.registeredEvents = user.registeredEvents.filter(eid => eid !== event.id);
     } else {
@@ -159,7 +178,7 @@ app.post('/api/events/:id/register', (req, res) => {
     }
   }
 
-  res.json({ success: true, registered: !isRegistered, event });
+  res.json({ success: true, registered: !isRegistered, event, role });
 });
 
 // QR Code Check-in / Attendance Verification

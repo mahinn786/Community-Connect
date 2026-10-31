@@ -37,11 +37,11 @@ export const InteractiveMap = ({ events, onSelectEvent }) => {
 
     // Custom Icon Generator
     const createCustomIcon = (category) => {
-      let color = '#10B981'; // emerald
-      if (category === 'Blood Donation') color = '#EF4444';
-      if (category === 'Cleanliness Drives') color = '#0D9488';
-      if (category === 'Education') color = '#6366F1';
-      if (category === 'Disaster Relief') color = '#8B5CF6';
+      let color = '#783F46'; // Deep Burgundy default
+      if (category === 'Cleanliness Drives') color = '#B59A8C'; // Dusty Taupe
+      if (category === 'Education') color = '#342C2D'; // Espresso Charcoal
+      if (category === 'Blood Donation') color = '#783F46'; // Deep Burgundy
+      if (category === 'Disaster Relief') color = '#783F46';
 
       return L.divIcon({
         className: 'custom-leaflet-marker',
@@ -51,8 +51,8 @@ export const InteractiveMap = ({ events, onSelectEvent }) => {
             width: 32px;
             height: 32px;
             border-radius: 50%;
-            border: 3px solid white;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            border: 3px solid #FFFFFF;
+            box-shadow: 0 4px 10px rgba(52,44,45,0.3);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -86,10 +86,10 @@ export const InteractiveMap = ({ events, onSelectEvent }) => {
         popupContainer.className = 'p-2 max-w-xs space-y-2';
         popupContainer.innerHTML = `
           <img src="${evt.bannerUrl}" alt="${evt.title}" class="w-full h-24 object-cover rounded-lg mb-2" />
-          <span class="inline-block px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-100 text-emerald-800">${evt.category}</span>
-          <h4 class="font-bold text-xs text-slate-900 line-clamp-1">${evt.title}</h4>
-          <p class="text-[11px] text-slate-600">📅 ${evt.date} | 📍 ${evt.city || evt.location}</p>
-          <button id="pop-btn-${evt.id}" class="w-full py-1 text-[11px] font-bold bg-emerald-600 text-white rounded-md hover:bg-emerald-700 transition-colors mt-2">
+          <span class="inline-block px-2.5 py-0.5 rounded text-[10px] font-bold bg-[#F6F3EF] text-[#783F46] border border-[#D9D1C7]">${evt.category}</span>
+          <h4 class="font-bold text-xs text-[#342C2D] line-clamp-1">${evt.title}</h4>
+          <p class="text-[11px] text-[#B59A8C]">📅 ${evt.date} | 📍 ${evt.city || evt.location}</p>
+          <button id="pop-btn-${evt.id}" class="w-full py-1.5 text-[11px] font-bold bg-[#783F46] text-white rounded-lg hover:bg-[#623339] transition-colors mt-2 shadow-sm">
             View Drive Details
           </button>
         `;
@@ -113,23 +113,23 @@ export const InteractiveMap = ({ events, onSelectEvent }) => {
   }, [events]);
 
   return (
-    <div className="relative w-full h-[450px] rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-800 shadow-md">
+    <div className="relative w-full h-[450px] rounded-2xl overflow-hidden border border-[#D9D1C7] shadow-md bg-[#F6F3EF]">
       <div ref={mapRef} className="w-full h-full z-10" />
       
       {/* Legend overlay */}
-      <div className="absolute bottom-3 left-3 z-20 glass-panel p-2.5 rounded-xl shadow-lg border border-slate-200/80 dark:border-slate-800 text-xs space-y-1">
-        <div className="font-bold text-[11px] text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">Drive Locations</div>
-        <div className="flex items-center gap-2 text-[11px]">
-          <span className="w-3 h-3 rounded-full bg-emerald-500 inline-block"></span>
-          <span>Green Plantation</span>
+      <div className="absolute bottom-3 left-3 z-20 bg-white/95 backdrop-blur-md p-3 rounded-xl shadow-lg border border-[#D9D1C7] text-xs space-y-1.5">
+        <div className="font-bold text-[11px] text-[#342C2D] uppercase tracking-wider mb-1">Drive Locations</div>
+        <div className="flex items-center gap-2 text-[11px] text-[#342C2D]">
+          <span className="w-3 h-3 rounded-full bg-[#783F46] inline-block"></span>
+          <span>Plantation & Medical</span>
         </div>
-        <div className="flex items-center gap-2 text-[11px]">
-          <span className="w-3 h-3 rounded-full bg-rose-500 inline-block"></span>
-          <span>Blood Donation</span>
-        </div>
-        <div className="flex items-center gap-2 text-[11px]">
-          <span className="w-3 h-3 rounded-full bg-teal-500 inline-block"></span>
+        <div className="flex items-center gap-2 text-[11px] text-[#342C2D]">
+          <span className="w-3 h-3 rounded-full bg-[#B59A8C] inline-block"></span>
           <span>Cleanliness Drives</span>
+        </div>
+        <div className="flex items-center gap-2 text-[11px] text-[#342C2D]">
+          <span className="w-3 h-3 rounded-full bg-[#342C2D] inline-block"></span>
+          <span>Education & Relief</span>
         </div>
       </div>
     </div>
